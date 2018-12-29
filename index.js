@@ -1,7 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors'); 
+var path = require('path') 
+
+
 var port = (process.env.PORT || 3000);
+var CREDITS_APP_DIR = '/dist/credits-app';
+var API_BASE_URL = '/api/v1';
 
 
 // init app
@@ -10,6 +15,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
+// TODO: fake data to be removed when using mongodb
 credits = [
     {
         "project_id": 1,
@@ -54,14 +60,28 @@ credits2 = [
 ]
 
 
+// -------------------------
+// angular app
+// -------------------------
+
+app.use(express.static(path.join(__dirname, CREDITS_APP_DIR))); 
+app.get('/', function(req, res) { 
+    res.sendFile(path.join(__dirname, CREDITS_APP_DIR, '/index.html')); 
+}); 
+
+
+
+// -------------------------
 // credits
+// -------------------------
+
 // get all credits
-app.get("/credits", (req, res) => {
+app.get(API_BASE_URL + "/credits", (req, res) => {
     res.send(credits2)
 });
 
 // single credit
-app.get("/credits/:id", (req, res) => {
+app.get(API_BASE_URL + "/credits/:id", (req, res) => {
     var project_id = req.params.id;
     console.log(project_id);
     credit = credits2.find(credit => credit.project_id == project_id);
@@ -73,7 +93,7 @@ app.get("/credits/:id", (req, res) => {
 });
 
 // new credit
-app.post("/credits", (req, res) => {
+app.post(API_BASE_URL + "/credits", (req, res) => {
     var credit = req.body;
     console.log(credit);
     credits2.push(credit);
@@ -81,7 +101,7 @@ app.post("/credits", (req, res) => {
 });
 
 // delete credit
-app.delete("/credits/:id", (req, res) => {
+app.delete(API_BASE_URL + "/credits/:id", (req, res) => {
     var project_id = req.params.id;
     console.log(project_id);
     // use === instead of ==
@@ -91,51 +111,54 @@ app.delete("/credits/:id", (req, res) => {
 });
 
 
-
+// -------------------------
 // credit income
+// -------------------------
+
 // all income
-app.get("/credits/:id/income", (req, res) => {
+app.get(API_BASE_URL + "/credits/:id/income", (req, res) => {
 
 });
 // single income
-app.get("/credits/:id/income/:id", (req, res) => {
+app.get(API_BASE_URL + "/credits/:id/income/:id", (req, res) => {
 
 });
 // create income
-app.post("/credits/:id/income", (req, res) => {
+app.post(API_BASE_URL + "/credits/:id/income", (req, res) => {
 
 });
 // update income
-app.put("/credits/:id/income/:id", (req, res) => {
+app.put(API_BASE_URL + "/credits/:id/income/:id", (req, res) => {
 
 });
 // delete income
-app.delete("/credits/:id/income/:id", (req, res) => {
+app.delete(API_BASE_URL + "/credits/:id/income/:id", (req, res) => {
 
 });
 
 
-
-
+// -------------------------
 // credit expenses
+// -------------------------
+
 // all expenses
-app.get("/credits/:id/expenses", (req, res) => {
+app.get(API_BASE_URL + "/credits/:id/expenses", (req, res) => {
 
 });
 // single expenses
-app.get("/credits/:id/expenses/:id", (req, res) => {
+app.get(API_BASE_URL + "/credits/:id/expenses/:id", (req, res) => {
 
 });
 // create expenses
-app.post("/credits/:id/expenses", (req, res) => {
+app.post(API_BASE_URL + "/credits/:id/expenses", (req, res) => {
 
 });
 // update expenses
-app.put("/credits/:id/expenses/:id", (req, res) => {
+app.put(API_BASE_URL + "/credits/:id/expenses/:id", (req, res) => {
 
 });
 // delete expenses
-app.delete("/credits/:id/expenses/:id", (req, res) => {
+app.delete(API_BASE_URL + "/credits/:id/expenses/:id", (req, res) => {
 
 });
 
