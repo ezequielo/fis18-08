@@ -9,7 +9,7 @@ COPY package-lock.json .
 RUN npm install
 
 COPY index.js .
-# COPY dist dist
+COPY dist dist
 
 
 ENV NODE_ENV=production
