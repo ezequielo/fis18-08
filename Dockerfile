@@ -1,4 +1,4 @@
-FROM node:9-alpine
+FROM node:10.14-stretch-slim
 
 WORKDIR /app
 
@@ -9,6 +9,8 @@ COPY package-lock.json .
 RUN npm install
 
 COPY index.js .
+COPY credits.js .
+COPY server.js .
 COPY dist dist
 
 
