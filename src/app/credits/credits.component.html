@@ -1,0 +1,22 @@
+<div *ngIf="selectedCredit">
+    {{selectedCredit.project_id}}
+  </div>
+  
+  <table class="table">
+  <thead>
+      <tr>
+          <th>Project ID</th>
+          <th>Total</th>
+          <th>&nbsp;</th>
+      </tr>
+  </thead>  
+  
+  <tr>
+      <td><input class="form-control" [(ngModel)]="newCredit.project_id"></td>
+      <td><input class="form-control" [(ngModel)]="newCredit.total"></td>
+      <td><button class="btn btn-primary" (click)="addCredit()">Add Credit</button> </td>
+  </tr>     
+  
+  <tr *ngFor="let contact of contacts" app-editable-credits [credit]="credit">
+  </tr>    
+  </table>

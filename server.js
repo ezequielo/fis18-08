@@ -1,18 +1,31 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var DataStore = require("nedb");
 var cors = require('cors'); 
 var path = require('path');
 
 var Credit = require('./credits');
 
-var CREDITS_APP_DIR = '/dist/credits-app';
+const CREDITS_APP_DIR = '/dist/credits-app';
 var API_BASE_URL = '/api/v1';
+var dbFileName = __dirname + "/credits.json";
+
+var initialCredits = [
+    { "project_id": "A02", "total": 200000 },
+    { "project_id": "D04", "total": 450000 }
+];
+
+var db = new DataStore({
+    filename: dbFileName,
+    autoload: true
+});
 
 
 // init app
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
+
 
 
 // -------------------------

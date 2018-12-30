@@ -1,0 +1,5 @@
+<td *ngIf="!editable">{{credit.project_id}}</td>
+<td *ngIf="!editable">{{credit.total}}</td>
+<td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.project_id"/></td>
+<td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.total"/></td>
+<td><button class="btn" (click)="onEdit()">{{editable ? 'Save': 'Edit'}}</button></td>
