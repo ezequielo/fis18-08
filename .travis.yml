@@ -16,6 +16,7 @@ install:
 
 script:
   - ng build --prod --aot
+  - npm test
   - docker build -t contacts .
 
 deploy:
