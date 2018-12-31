@@ -70,7 +70,7 @@ app.post(API_BASE_URL + "/credits", (req, res) => {
             console.error("Error accessing database:\n" + err);
             res.sendStatus(500);
         } else {
-            res.send(201, credit);
+            res.status(201).send(credit);
         }
     });
 });
@@ -79,8 +79,8 @@ app.post(API_BASE_URL + "/credits", (req, res) => {
 // update credit
 app.put(API_BASE_URL + "/credits/:id", (req, res) => {
     var id = req.params.id;
-    var credit = req.body;
-    Credit.findByIdAndUpdate(id, credit, (err, credit) => {
+    var updatedCredit = req.body;
+    Credit.findByIdAndUpdate(id, updatedCredit, (err, credit) => {
         if (err) {
             console.error("Error accessing database:\n" + err);
             res.sendStatus(500);
@@ -88,7 +88,7 @@ app.put(API_BASE_URL + "/credits/:id", (req, res) => {
             if (!credit) {
                 res.sendStatus(404);
             } else {
-                res.sendStatus(200);
+                res.send(updatedCredit);
             }
         }
     });
@@ -107,63 +107,11 @@ app.delete(API_BASE_URL + "/credits/:id", (req, res) => {
                 res.sendStatus(404);
             } else {
                 console.info("Credit deleted:\n" + credit);
-                res.sendStatus(200);
+                res.send(credit);
             }
         }
     });
 });
 
 
-// -------------------------
-// credit income
-// -------------------------
-
-// all income
-app.get(API_BASE_URL + "/credits/:id/income", (req, res) => {
-
-});
-// single income
-app.get(API_BASE_URL + "/credits/:id/income/:id", (req, res) => {
-
-});
-// create income
-app.post(API_BASE_URL + "/credits/:id/income", (req, res) => {
-
-});
-// update income
-app.put(API_BASE_URL + "/credits/:id/income/:id", (req, res) => {
-
-});
-// delete income
-app.delete(API_BASE_URL + "/credits/:id/income/:id", (req, res) => {
-
-});
-
-
-// -------------------------
-// credit expenses
-// -------------------------
-
-// all expenses
-app.get(API_BASE_URL + "/credits/:id/expenses", (req, res) => {
-
-});
-// single expenses
-app.get(API_BASE_URL + "/credits/:id/expenses/:id", (req, res) => {
-
-});
-// create expenses
-app.post(API_BASE_URL + "/credits/:id/expenses", (req, res) => {
-
-});
-// update expenses
-app.put(API_BASE_URL + "/credits/:id/expenses/:id", (req, res) => {
-
-});
-// delete expenses
-app.delete(API_BASE_URL + "/credits/:id/expenses/:id", (req, res) => {
-
-});
-
- 
 module.exports.app = app;
