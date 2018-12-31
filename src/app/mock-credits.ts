@@ -1,4 +1,4 @@
-import { Credit } from './credit';
+/*import { Credit } from './credit';
 
 export const CREDITS: Credit[] = [
   { project_id: 'A-0001', total: 3000 },
@@ -8,4 +8,4 @@ export const CREDITS: Credit[] = [
   { project_id: 'A-0003', total: 30000 },
   { project_id: 'A-0004', total: 345 },
   { project_id: 'C-096', total: 0 },
-];
+];*/
