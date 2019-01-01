@@ -19,7 +19,13 @@ export class EditableCreditsComponent implements OnInit {
     window.location.reload();
   }
 
+  // TODO this is the same we have in credits.component ->  refactor
+  computeTotal() {
+    return Number(this.credit.income) - Number(this.credit.personnelExpenses) - Number(this.credit.executionExpenses);
+  }
+
   onEdit() {
+    this.credit.total = this.computeTotal();
     this.editable = ! this.editable;
     if (this.editable === false) {
       this.creditService.editCredit(this.credit)

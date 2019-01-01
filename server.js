@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors'); 
 var path = require('path');
+ObjectID = require('mongodb').ObjectID;
 
 var Credit = require('./credits');
 
@@ -38,7 +39,7 @@ app.get(API_BASE_URL + "/credits", (req, res) => {
             res.sendStatus(500);
         } else {
             res.send(credits.map((credit)=> {
-                return credit;
+                return credit.cleanup();
             }));
         }
     });
@@ -56,7 +57,7 @@ app.get(API_BASE_URL + "/credits/:id", (req, res) => {
             if (!credit) {
                 res.sendStatus(404);
             } else {
-                res.send(credit);
+                res.send(credit.cleanup());
             }
         }
     });
@@ -64,13 +65,16 @@ app.get(API_BASE_URL + "/credits/:id", (req, res) => {
 
 // new credit
 app.post(API_BASE_URL + "/credits", (req, res) => {
-    var credit = req.body;
-    Credit.create(credit, (err, credit) => {
+    var newCredit = req.body;
+    newCredit._id = new ObjectID();
+    newCredit.created = new Date();
+    Credit.create(newCredit, (err, credit) => {
         if (err) {
             console.error("Error accessing database:\n" + err);
             res.sendStatus(500);
         } else {
-            res.status(201).send(credit);
+            console.info("New credit created:\n " + credit);
+            res.status(201).send(credit.cleanup());
         }
     });
 });
@@ -107,6 +111,7 @@ app.delete(API_BASE_URL + "/credits/:id", (req, res) => {
                 res.sendStatus(404);
             } else {
                 console.info("Credit deleted:\n" + credit);
+                // TODO: dont send credit back to frontend
                 res.send(credit);
             }
         }
