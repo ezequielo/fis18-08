@@ -1,20 +1,44 @@
 
-  
-<table class="table">
-<thead>
-    <tr>
-        <th>Project ID</th>
-        <th>Total</th>
-        <th>&nbsp;</th>
-    </tr>
-</thead>  
-
-<tr>
-    <td><input class="form-control" [(ngModel)]="newCredit.project_id"></td>
-    <td><input class="form-control" [(ngModel)]="newCredit.total"></td>
-    <td><button class="btn btn-primary" (click)="addCredit()">Add Credit</button> </td>
-</tr>     
-
-<tr *ngFor="let credit of credits" app-editable-credits [credit]="credit">
-</tr>    
-</table>
+<div class="col-sm-4">
+    <h3>Create new credit</h3>
+    <table>
+        <tr>
+            <td>Project ID</td>
+            <td><input class="form-control" [(ngModel)]="newCredit.projectId"></td>
+        </tr>
+        <tr>
+            <td>Income</td>
+            <td><input class="form-control" [(ngModel)]="newCredit.income"></td>
+        </tr>
+        <tr>
+            <td>Personnel Expenses</td>
+            <td><input class="form-control" [(ngModel)]="newCredit.personnelExpenses"></td>
+        </tr>
+        <tr>
+            <td>Execution Expenses</td>
+            <td><input class="form-control" [(ngModel)]="newCredit.executionExpenses"></td>
+        </tr>
+    </table>
+    <br>
+    <button class="btn btn-primary" (click)="addCredit()">Add Credit</button>
+</div>
+<br>
+<br>
+<div>
+    <h3>Credits</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Project ID</th>
+                <th>Created</th>
+                <th>Income</th>
+                <th>Personnel Expenses</th>
+                <th>Execution Expenses</th>
+                <th>Total</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let credit of credits" app-editable-credits [credit]="credit"></tr>    
+    </table>
+</div>

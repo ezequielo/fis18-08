@@ -1,12 +1,25 @@
 var mongoose = require('mongoose');
 
 var creditSchema = new mongoose.Schema({
-    project_id: String,
+    projectId: String,
+    created: Date,
+    income: Number,
+    personnelExpenses: Number,
+    executionExpenses: Number,
     total: Number
 });
 
 creditSchema.methods.cleanup = function() {
-    return {project_id: this.project_id, total: this.total};
+    return {
+        // TODO: return id, not _id
+        _id: this._id,
+        projectId: this.projectId,
+        created: this.created,
+        personnelExpenses: this.personnelExpenses,
+        executionExpenses: this.executionExpenses,
+        income: this.income,
+        total: this.total
+    };
 }
 
 var Credit = mongoose.model('Credit', creditSchema);

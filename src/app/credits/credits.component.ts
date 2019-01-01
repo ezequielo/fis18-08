@@ -14,19 +14,31 @@ export class CreditsComponent implements OnInit {
 
   newCredit: Credit = {
     _id: null,
-    project_id: null,
+    projectId: null,
+    income: null,
+    personnelExpenses: null,
+    executionExpenses: null,
     total: null
   };
 
   constructor(private creditService: CreditsService) { }
 
+
+  computeTotal() {
+    return Number(this.newCredit.income) - Number(this.newCredit.personnelExpenses) - Number(this.newCredit.executionExpenses);
+  }
+
   addCredit() {
+    this.newCredit.total = this.computeTotal();
     this.creditService.createCredit(this.newCredit)
       .subscribe((credit) => {
         this.credits.push(credit);
         this.newCredit = {
           _id: null,
-          project_id: null,
+          projectId: null,
+          income: null,
+          personnelExpenses: null,
+          executionExpenses: null,
           total: null
         };
       });
