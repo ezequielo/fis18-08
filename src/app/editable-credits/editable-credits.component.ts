@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Credit } from '../credit';
 import { CreditsService } from '../credit.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: '[app-editable-credits]',
@@ -12,12 +14,7 @@ export class EditableCreditsComponent implements OnInit {
   @Input() credit: Credit;
   editable = false;
 
-  constructor(private creditService: CreditsService) { }
-
-  // TOOD: move this to utils file
-  refresh(): void {
-    window.location.reload();
-  }
+  constructor(private creditService: CreditsService, private router: Router) { }
 
   // TODO this is the same we have in credits.component ->  refactor
   computeTotal() {
@@ -37,7 +34,7 @@ export class EditableCreditsComponent implements OnInit {
 
   onDelete() {
     this.creditService.deleteCredit(this.credit._id).subscribe();
-    this.refresh();
+    this.router.navigateByUrl('/credits');
   }
 
   ngOnInit() {
