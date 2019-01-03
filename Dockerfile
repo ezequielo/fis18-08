@@ -18,7 +18,7 @@ COPY dist dist
 
 ENV NODE_ENV=production
 
-RUN npm setupdb.js
+RUN node setupdb.js
 
 EXPOSE 3000
 CMD npm start
