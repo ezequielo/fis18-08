@@ -15,12 +15,9 @@ db.once('open', function() {
             if(err) {
                 console.log(err);
               } else {
-<<<<<<< HEAD
                 console.log('user: ' + user.user + ", password: " 
                 + password + ", apikey: " + user.apikey + " saved.");
-=======
-                console.log('user: ' + user.user + ", "+ user.apikey + " saved.");
->>>>>>> 2a869212b49da171bbe6519107ee24c1ba364144
+
               }
         });        
     })
