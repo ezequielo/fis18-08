@@ -33,7 +33,7 @@ app.get('/', function(req, res) {
 
 // get all credits
 app.get(API_BASE_URL + "/credits", (req, res) => {
-    Credit.find((err, credits) => {
+    Credit.find({},(err, credits) => {
         if (err){
             console.error("Error accessing database:\n" + err);
             res.sendStatus(500);
