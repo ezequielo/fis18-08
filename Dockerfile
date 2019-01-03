@@ -10,7 +10,7 @@ RUN npm install
 
 COPY index.js .
 COPY credits.js .
-COPY credits.js .
+COPY apikeys.js .
 COPY setupdb.js .
 COPY server.js .
 COPY dist dist
