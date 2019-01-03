@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Credit } from '../credit';
 import { CreditsService } from '../credit.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: '[app-editable-credits]',
@@ -12,7 +14,7 @@ export class EditableCreditsComponent implements OnInit {
   @Input() credit: Credit;
   editable = false;
 
-  constructor(private creditService: CreditsService) { }
+  constructor(private creditService: CreditsService, private router: Router) { }
 
   // TOOD: move this to utils file
   refresh(): void {

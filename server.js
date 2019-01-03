@@ -2,18 +2,37 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors'); 
 var path = require('path');
+var passport = require('passport');
+var LocalAPIKey = require('passport-localapikey-update').Strategy;
+
 ObjectID = require('mongodb').ObjectID;
 
+var ApiKey = require('./apikeys');
 var Credit = require('./credits');
 
 var CREDITS_APP_DIR = '/dist/credits-app';
 var API_BASE_URL = '/api/v1';
 
 
+passport.use(new LocalAPIKey(
+    (apikey, done) => {
+        ApiKey.findOne({apikey: apikey}, (err, user) => {
+            if (err) { return done(err); }
+            if (!user) {
+                return done(null, false, { message: 'Unknown apikey ' +apikey });
+            } else {
+                return done(null, user);
+            }
+        });
+    }
+));
+
+
 // init app
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
+app.use(passport.initialize());
 
 
 // -------------------------
@@ -26,96 +45,131 @@ app.get('/', function(req, res) {
 }); 
 
 
+// -------------------------
+// login
+// -------------------------
+app.post(API_BASE_URL + "/login", (req, res) => {
+    var login = req.body;
+    ApiKey.findOne({user: login.user}, (err, apikey) => {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
+        if (!apikey){
+            res.sendStatus(401);
+        } else {
+            apikey.comparePassword(login.password, (err, r) => {
+                if (err) res.sendStatus(500);
+                if (r) {
+                    res.send({"user": apikey.user, "token": apikey.apikey});
+                } else {
+                    res.sendStatus(401);
+                }
+            });
+        }
+    })
+});
+
 
 // -------------------------
 // credits
 // -------------------------
 
 // get all credits
-app.get(API_BASE_URL + "/credits", (req, res) => {
-    Credit.find((err, credits) => {
-        if (err){
-            console.error("Error accessing database:\n" + err);
-            res.sendStatus(500);
-        } else {
-            res.send(credits.map((credit)=> {
-                return credit.cleanup();
-            }));
-        }
-    });
+app.get(API_BASE_URL + "/credits", 
+    passport.authenticate('localapikey', {session: false}),
+    (req, res) => {
+        Credit.find((err, credits) => {
+            if (err){
+                console.error("Error accessing database:\n" + err);
+                res.sendStatus(500);
+            } else {
+                res.send(credits.map((credit)=> {
+                    return credit.cleanup();
+                }));
+            }
+        });
 });
 
 
 // single credit
-app.get(API_BASE_URL + "/credits/:id", (req, res) => {
-    var id = req.params.id;
-    Credit.findById(id, (err, credit) => {
-        if (err) {
-            console.error("Error accessing database:\n" + err);
-            res.sendStatus(500);
-        } else {
-            if (!credit) {
-                res.sendStatus(404);
+app.get(API_BASE_URL + "/credits/:id",
+    passport.authenticate('localapikey', {session: false}),
+    (req, res) => {
+        var id = req.params.id;
+        Credit.findById(id, (err, credit) => {
+            if (err) {
+                console.error("Error accessing database:\n" + err);
+                res.sendStatus(500);
             } else {
-                res.send(credit.cleanup());
+                if (!credit) {
+                    res.sendStatus(404);
+                } else {
+                    res.send(credit.cleanup());
+                }
             }
-        }
-    });
+        });
 });
 
 // new credit
-app.post(API_BASE_URL + "/credits", (req, res) => {
-    var newCredit = req.body;
-    newCredit._id = new ObjectID();
-    newCredit.created = new Date();
-    Credit.create(newCredit, (err, credit) => {
-        if (err) {
-            console.error("Error accessing database:\n" + err);
-            res.sendStatus(500);
-        } else {
-            console.info("New credit created:\n " + credit);
-            res.status(201).send(credit.cleanup());
-        }
-    });
+app.post(API_BASE_URL + "/credits", 
+    passport.authenticate('localapikey', {session: false}),
+        (req, res) => {
+        var newCredit = req.body;
+        newCredit._id = new ObjectID();
+        newCredit.created = new Date();
+        Credit.create(newCredit, (err, credit) => {
+            if (err) {
+                console.error("Error accessing database:\n" + err);
+                res.sendStatus(500);
+            } else {
+                console.info("New credit created:\n " + credit);
+                res.status(201).send(credit.cleanup());
+            }
+        });
 });
 
 
 // update credit
-app.put(API_BASE_URL + "/credits/:id", (req, res) => {
-    var id = req.params.id;
-    var updatedCredit = req.body;
-    Credit.findByIdAndUpdate(id, updatedCredit, (err, credit) => {
-        if (err) {
-            console.error("Error accessing database:\n" + err);
-            res.sendStatus(500);
-        } else {
-            if (!credit) {
-                res.sendStatus(404);
+app.put(API_BASE_URL + "/credits/:id", 
+    passport.authenticate('localapikey', {session: false}),
+    (req, res) => {
+        var id = req.params.id;
+        var updatedCredit = req.body;
+        Credit.findByIdAndUpdate(id, updatedCredit, (err, credit) => {
+            if (err) {
+                console.error("Error accessing database:\n" + err);
+                res.sendStatus(500);
             } else {
-                res.send(updatedCredit);
+                if (!credit) {
+                    res.sendStatus(404);
+                } else {
+                    res.send(updatedCredit);
+                }
             }
-        }
-    });
+        });
 });
 
 
 // delete credit
-app.delete(API_BASE_URL + "/credits/:id", (req, res) => {
-    var id = req.params.id;
-    Credit.findByIdAndDelete(id, (err, credit) => {
-        if (err) {
-            console.error("Error accessing database:\n" + err);
-            res.sendStatus(500);
-        } else {
-            if (!credit) {
-                res.sendStatus(404);
+app.delete(API_BASE_URL + "/credits/:id", 
+    passport.authenticate('localapikey', {session: false}),
+    (req, res) => {
+        var id = req.params.id;
+        Credit.findByIdAndDelete(id, (err, credit) => {
+            if (err) {
+                console.error("Error accessing database:\n" + err);
+                res.sendStatus(500);
             } else {
-                console.info("Credit deleted:\n" + credit);
-                // TODO: dont send credit back to frontend
-                res.send(credit);
+                if (!credit) {
+                    res.sendStatus(404);
+                } else {
+                    console.info("Credit deleted:\n" + credit);
+                    // TODO: dont send credit back to frontend
+                    res.send(credit);
+                }
             }
-        }
-    });
+        });
 });
 
 
