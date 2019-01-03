@@ -29,6 +29,11 @@ apikeySchema.pre('save', function(next) {
 
 // Password verification
 apikeySchema.methods.comparePassword = function(candidatePassword, cb) {
+<<<<<<< HEAD
+=======
+	console.log("cadidate password: " + candidatePassword);
+	console.log("this password: " + this.password);
+>>>>>>> 2a869212b49da171bbe6519107ee24c1ba364144
 	bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
 		if(err) return cb(err);
 		cb(null, isMatch);

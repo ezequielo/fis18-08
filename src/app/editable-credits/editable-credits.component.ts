@@ -15,6 +15,14 @@ export class EditableCreditsComponent implements OnInit {
   editable = false;
 
   constructor(private creditService: CreditsService, private router: Router) { }
+<<<<<<< HEAD
+=======
+
+  // TOOD: move this to utils file
+  refresh(): void {
+    window.location.reload();
+  }
+>>>>>>> 2a869212b49da171bbe6519107ee24c1ba364144
 
   // TODO this is the same we have in credits.component ->  refactor
   computeTotal() {

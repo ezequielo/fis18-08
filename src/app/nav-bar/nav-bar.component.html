@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <span class="navbar-brand mb-0 h1">Credits App</span>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -18,3 +19,16 @@
       </div>
     </div>
   </nav>
+=======
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-bottom shadow-sm">
+  <!-- fix this shit-->
+  <h5 class="my-0 mr-md-auto font-weight-normal text-light">Credits</h5>
+  <nav class="my-2 my-md-0 mr-md-3">
+    <a class="p-2 text-light" routerLink="/credits" *ngIf="isUserLoggedIn()">Credits</a>
+    <a class="p-2 text-light" routerLink="/new" *ngIf="isUserLoggedIn()">New credit</a>
+    <a class="p-2 text-light" routerLink="/about">About</a>
+  </nav>
+  <a class="btn btn-outline-primary text-light" *ngIf="!isUserLoggedIn()" (click)=login()>Login</a>
+  <a class="btn btn-outline-primary text-light" *ngIf="isUserLoggedIn()" (click)=logout()>Logout</a>
+</div>
+>>>>>>> 2a869212b49da171bbe6519107ee24c1ba364144
