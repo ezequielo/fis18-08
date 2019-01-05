@@ -71,7 +71,7 @@ describe('Credits API', () => {
         });
     });
     
-
+/*
     describe('POST /credits', () => {
         it('should create a new contact', (done) => {
             var credit = {
@@ -95,6 +95,6 @@ describe('Credits API', () => {
                 });  
 
         });
-    });    
+    });   */ 
 
 });
