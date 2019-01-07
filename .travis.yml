@@ -18,6 +18,9 @@ script:
   - ng build --prod --aot
   - npm test
   - docker build -t contacts .
+  
+after_success: 
+  - npm run coverage
 
 deploy:
   provider: script
