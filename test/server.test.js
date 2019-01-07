@@ -250,8 +250,3 @@ describe('Credits API', () => {
 
 
 });
-
-describe('Auth API', () => {
-    
-
-});
