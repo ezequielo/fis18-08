@@ -1,22 +1,24 @@
 <div class="card mt-5" style="margin:auto;width: 600px;">
-    <div class="card-body">
-      <h5 class="card-title">New Credit</h5>
+  <div class="card-body">
+    <h5 class="card-title">New Credit</h5>
+    <form [formGroup]="newCreditForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="projectId">Project ID</label>
-        <input type="text" class="form-control" id="projectId" placeholder="someone@example.com" [(ngModel)]="newCredit.projectId">
+        <input type="text" class="form-control" id="projectId" placeholder="someone@example.com" formControlName="projectId">
       </div>
       <div class="form-group">
         <label for="income">Income</label>
-        <input type="text" class="form-control" id="income" placeholder="20000" [(ngModel)]="newCredit.income">
+        <input type="number" class="form-control" id="income" placeholder="20000" formControlName="income">
       </div>
       <div class="form-group">
         <label for="personnelExpenses">Personnel Expenses</label>
-        <input type="text" class="form-control" id="personnelExpenses" placeholder="1000" [(ngModel)]="newCredit.personnelExpenses">
+        <input type="number" class="form-control" id="personnelExpenses" placeholder="1000" formControlName="personnelExpenses" value=0>
       </div>
       <div class="form-group">
         <label for="executionExpenses">Execution Expenses</label>
-        <input type="text" class="form-control" id="executionExpenses" placeholder="2000" [(ngModel)]="newCredit.executionExpenses">
+        <input type="number" class="form-control" id="executionExpenses" placeholder="2000" formControlName="executionExpenses" value=0>
       </div>
-      <button type="submit" class="btn btn-primary" (click)="addCredit()">Create</button>
-    </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!newCreditForm.valid">Create</button>
+    </form>
   </div>
+</div>

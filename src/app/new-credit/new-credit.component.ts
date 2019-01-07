@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Credit } from '../credit';
 import { CreditsService } from '../credit.service';
 import { Router } from '@angular/router';
-
+import {  FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 
 
 @Component({
@@ -12,15 +12,34 @@ import { Router } from '@angular/router';
 })
 export class NewCreditComponent implements OnInit {
 
-  constructor(private creditService: CreditsService, private router: Router) { }
+  newCreditForm = this.fb.group({
+    projectId: ['', Validators.required],
+    income: ['', Validators.required],
+    personnelExpenses: [''],
+    executionExpenses: ['']
+  })
+
+  onSubmit() {
+    this.newCredit = {
+      _id: null,
+      projectId: this.newCreditForm.value.projectId,
+      income: this.newCreditForm.value.income,
+      personnelExpenses: this.newCreditForm.value.personnelExpenses !== ""? this.newCreditForm.value.personnelExpenses : 0,
+      executionExpenses: this.newCreditForm.value.executionExpenses !== "" ? this.newCreditForm.value.executionExpenses: 0,
+      total: null
+    }
+    this.addCredit();
+  }
+
+  constructor(private creditService: CreditsService, private router: Router, private fb: FormBuilder) { }
 
   newCredit: Credit = {
     _id: null,
     projectId: null,
-    income: null,
-    personnelExpenses: null,
-    executionExpenses: null,
-    total: null
+    income: 0,
+    personnelExpenses: 0,
+    executionExpenses: 0,
+    total: 0
   };
 
   ngOnInit() {
@@ -37,10 +56,10 @@ export class NewCreditComponent implements OnInit {
         this.newCredit = {
           _id: null,
           projectId: null,
-          income: null,
-          personnelExpenses: null,
-          executionExpenses: null,
-          total: null
+          income: 0,
+          personnelExpenses: 0,
+          executionExpenses: 0,
+          total: 0
         };
         this.router.navigateByUrl('/credits');
       });

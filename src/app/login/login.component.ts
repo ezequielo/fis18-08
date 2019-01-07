@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApikeyService } from '../apikey.service';
 import { TokenService } from '../token.service';
-
+import {  FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 
 
 @Component({
@@ -12,13 +12,24 @@ import { TokenService } from '../token.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private apikeyService: ApikeyService, private tokenService: TokenService, private router: Router) { }
+  constructor(private apikeyService: ApikeyService, private tokenService: TokenService, private router: Router,
+    private fb: FormBuilder) { }
 
   user: string = null;
   password: string = null;
 
+  loginForm = this.fb.group({
+    user: ['', Validators.required],
+    password: ['', Validators.required]
+  });
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    this.user = this.loginForm.value.user;
+    this.password = this.loginForm.value.password;
+    this.tryLogin();
   }
 
   tryLogin() {
