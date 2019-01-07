@@ -22,6 +22,9 @@ script:
 after_success: 
   - npm run coverage
 
+after_success: 
+  - npm run coverage
+
 deploy:
   provider: script
   skip_cleanup: true
