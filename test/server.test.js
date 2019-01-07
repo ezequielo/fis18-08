@@ -44,7 +44,6 @@ describe('Credits API', () => {
         creditMock.expects('cleanup').returns(CREDIT);
         var CreditStub = sinon.stub(Credit, 'find');
         CreditStub.yields(null, [credit]);
-
         it('should return all credits', (done) => {
             chai.request(server.app)
                 .get('/api/v1/credits')
@@ -198,7 +197,32 @@ describe('Credits API', () => {
                 });  
         });
     });
+    
+/*
+    describe('POST /credits', () => {
+        it('should create a new contact', (done) => {
+            var credit = {
+                "_id": "5c2ba7bca",
+                "projectId": "F-05", 
+                "created": "2019-01-02T18:03:38.803Z", 
+                "personnelExpenses": 200, 
+                "executionExpenses": 100, 
+                "income": 500, 
+                "total": 200 
+            };
+            var dbMock = sinon.mock(Credit);
+            dbMock.expects('create').withArgs(credit).yields(null);
+            chai.request(server.app)
+                .post('/api/v1/credits')
+                .send(credit)
+                .end((err, res) => {
+                    expect(res).to.have.status(201);
+                    dbMock.verify();
+                    done();
+                });  
 
+        });
+    }); 
 
     describe('DELETE /credits/<id>', () => {
 
