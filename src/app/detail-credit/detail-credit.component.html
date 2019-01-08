@@ -28,11 +28,20 @@
           <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.executionExpenses"/></td>
         </tr>  
         <tr>
-          <td class="my-td-bold">Total</td>
+          <td class="my-td-bold">Total EUR</td>
           <td *ngIf="!editable">{{credit.total}}</td>
           <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.total" disabled/></td>
-        </tr>   
+        </tr>
+        <tr *ngIf="displayDollars">
+          <td class="my-td-bold">Total USD</td>
+          <td>{{totalDollars}}</td>
+        </tr>
       </table>
+      <div style="float:right">
+          <button class="btn btn-outline-success" (click)="onTotalDollars()">Get total in USD</button>
+      </div>
+      <br>
+      <br>
       <hr>
       <div app-project-info [credit]="credit">
 

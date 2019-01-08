@@ -6,6 +6,7 @@ var passport = require('passport');
 var LocalAPIKey = require('passport-localapikey-update').Strategy;
 
 var projectResource = require('./project-resource.js');
+var rateResource = require('./rate-resource.js');
 
 ObjectID = require('mongodb').ObjectID;
 
@@ -178,21 +179,6 @@ app.delete(API_BASE_URL + "/credits/:id",
 // project info
 // -------------------------
 
-// TODO: not hardcoded
-project = {
-	"id": "1",
-	"titulo": "Testeo",
-	"descripcion": "Testeroni",
-	"fechaInicio": "2018-12-11T23:00:00.000Z",
-	"fechaFin": "2018-12-12T23:00:00.000Z",
-	"organismo": "ETSII",
-	"investigadorResponsable": "1",
-	"investigadores": ["2, 3"],
-	"presupuesto": "1",
-	"estado": "Concedido"
-}
-url = "http://fis2018-02.herokuapp.com/api/v1/proyects/1?apikey=11165da8-c45d-4cb3-95c4-6fa13939f7a5";
-
 // single project
 app.get(API_BASE_URL + "/projects/:id",
     passport.authenticate('localapikey', {session: false}),
@@ -208,5 +194,23 @@ app.get(API_BASE_URL + "/projects/:id",
 });
 
 
+// -------------------------
+// rates
+// -------------------------
+
+// get rate 
+app.get(API_BASE_URL + "/rates/:symbol",
+    passport.authenticate('localapikey', {session: false}),
+    (req, res) => {
+        var symbol = req.params.symbol;
+        symbol = symbol.toUpperCase();
+        rateResource.getRate()
+        .then((body) => {
+            res.send({'rate': body.rates[symbol]})
+        }).catch((error) => {
+            console.log('error:'+error);
+            res.sendStatus(500);
+        });
+    });
 
 module.exports.app = app;
