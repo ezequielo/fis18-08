@@ -1,4 +1,4 @@
-<h5>Project info <button class="btn btn-light" (click)="displayInfo()">Dispaly</button></h5>
+<h5>Project info <button class="btn btn-light" (click)="displayInfo()">{{display? 'Hide' : 'Display'}}</button></h5>
 
 <div *ngIf="display">
   <div *ngIf="!found">
