@@ -5,7 +5,7 @@ var path = require('path');
 var passport = require('passport');
 var LocalAPIKey = require('passport-localapikey-update').Strategy;
 
-var projectResource = require('./project-resource.js');
+var projectResource = require('./projectResource.js');
 
 ObjectID = require('mongodb').ObjectID;
 
@@ -195,7 +195,7 @@ url = "http://fis2018-02.herokuapp.com/api/v1/proyects/1?apikey=11165da8-c45d-4c
 
 // single project
 app.get(API_BASE_URL + "/projects/:id",
-    passport.authenticate('localapikey', {session: false}),
+    //passport.authenticate('localapikey', {session: false}),
     (req, res) => {
         var id = req.params.id;
         projectResource.getProject(id)
