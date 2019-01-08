@@ -14,6 +14,7 @@ COPY apikeys.js .
 COPY setupdb.js .
 COPY server.js .
 COPY project-resource.js .
+COPY rate-resource.js .
 COPY dist dist
 
 
