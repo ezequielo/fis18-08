@@ -6,7 +6,7 @@
     "start": "node index.js",
     "build": "ng build",
     "test": "nyc mocha --exit",
-    "client-test": "mocha --exit ./",
+    "client-test": "mocha --timeout 1500 --exit projectResource.spec.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "ng lint",
     "e2e": "ng e2e"

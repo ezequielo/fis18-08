@@ -21,14 +21,14 @@ describe('projects api', () => {
                 })
         });
 
-        it('should get contact list from server', (done) => {
+        it('should get a project by its id from server', (done) => {
             projectResource.getProject(1)
-              .then((projects) => {
-                expect(projects).to.have.lengthOf(1);
-                //expect(projects).to.contain.an.item.with.property('name', 'Foo');
-                //expect(projects).to.contain.an.item.with.property('phone', 777);
+              .then((project) => {
+                expect(project).to.have.lengthOf(1);
+                expect(project).to.contain.an.item.with.property('id', '1');
+                expect(project).to.contain.an.item.with.property('organismo','ETSII')
                 done();
-              }, done);
+              }, done)
         }) 
-    })
+});
 })

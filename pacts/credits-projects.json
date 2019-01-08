@@ -1,0 +1,44 @@
+{
+  "consumer": {
+    "name": "Credits"
+  },
+  "provider": {
+    "name": "Projects"
+  },
+  "interactions": [
+    {
+      "description": "a request to retrieve a specific project",
+      "providerState": "it has one project",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/proyects/1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+          {
+            "id": "1",
+            "titulo": "Testeo",
+            "descripcion": "Testeroni",
+            "fechaInicio": "2018-12-11T23:00:00.000Z",
+            "fechaFin": "2018-12-12T23:00:00.000Z",
+            "organismo": "ETSII",
+            "investigadorResponsable": "1",
+            "investigadores": [
+              "2, 3"
+            ],
+            "presupuesto": "1",
+            "estado": "Concedido"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

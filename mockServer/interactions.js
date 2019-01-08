@@ -17,7 +17,7 @@ module.exports = {
         uponReceiving: 'a request to retrieve a specific project',
         withRequest: {
             method: 'GET',
-            path: '/api/v1/projects/1'
+            path: '/api/v1/proyects/1'
         },
         willRespondWith: {
             status: 200,
