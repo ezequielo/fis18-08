@@ -22,6 +22,7 @@ export class NewCreditComponent implements OnInit {
   onSubmit() {
     this.newCredit = {
       _id: null,
+      created: null,
       projectId: this.newCreditForm.value.projectId,
       income: this.newCreditForm.value.income,
       personnelExpenses: this.newCreditForm.value.personnelExpenses !== ""? this.newCreditForm.value.personnelExpenses : 0,
@@ -35,6 +36,7 @@ export class NewCreditComponent implements OnInit {
 
   newCredit: Credit = {
     _id: null,
+    created: null,
     projectId: null,
     income: 0,
     personnelExpenses: 0,
@@ -55,6 +57,7 @@ export class NewCreditComponent implements OnInit {
       .subscribe((credit) => {
         this.newCredit = {
           _id: null,
+          created: null,
           projectId: null,
           income: 0,
           personnelExpenses: 0,

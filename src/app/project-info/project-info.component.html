@@ -1,0 +1,16 @@
+<h5>Project info <button class="btn btn-light" (click)="displayInfo()">Dispaly</button></h5>
+
+<table *ngIf="display">
+  <tr>
+    <td>Name</td>
+    <td>{{ project.titulo }}</td>
+  </tr>
+  <tr>
+    <td>Organization</td>
+    <td>{{ project.organismo }}</td>
+  </tr>
+  <tr>
+    <td>Status</td>
+    <td>{{ project.estado }}</td>
+  </tr>  
+</table>

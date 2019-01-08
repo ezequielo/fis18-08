@@ -1,15 +1,7 @@
-<td *ngIf="!editable">{{credit.projectId}}</td>
-<td *ngIf="!editable">{{credit.created}}</td>
-<td *ngIf="!editable">{{credit.income}}</td>
-<td *ngIf="!editable">{{credit.personnelExpenses}}</td>
-<td *ngIf="!editable">{{credit.executionExpenses}}</td>
-<td *ngIf="!editable">{{credit.total}}</td>
-<td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.projectId"/></td>
-<td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.created" disabled/></td>
-<td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.income"/></td>
-<td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.personnelExpenses"/></td>
-<td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.executionExpenses"/></td>
-<td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.total" disabled/></td>
-<td><button class="btn btn-secondary" (click)="onEdit()">{{editable ? 'Save': 'Edit'}}</button></td>
-<td><button class="btn btn-danger" (click)="onDelete()">Delete</button></td>
-
+<td>{{credit.projectId}}</td>
+<td>{{credit.created}}</td>
+<td>{{credit.income}}</td>
+<td>{{credit.personnelExpenses}}</td>
+<td>{{credit.executionExpenses}}</td>
+<td>{{credit.total}}</td>
+<td><a routerLink="/credits/{{credit._id}}">Detail</a></td>
