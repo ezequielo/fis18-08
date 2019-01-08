@@ -1,6 +1,7 @@
 <div class="card mt-5" style="margin:auto;width: 600px;">
   <div class="card-body">
     <h5 class="card-title">Login</h5>
+    <p *ngIf="loginError" style="color: red;">Invalid user/password</p>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="email">Email</label>

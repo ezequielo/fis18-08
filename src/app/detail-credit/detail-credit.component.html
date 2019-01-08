@@ -3,32 +3,32 @@
       <h5 class="card-title">Credit {{ credit._id }}</h5>
       <table>
         <tr>
-          <td>Project ID</td>
+          <td class="my-td-bold">Project ID</td>
           <td *ngIf="!editable">{{credit.projectId}}</td>
           <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.projectId"/></td>
         </tr>
         <tr>
-          <td>Created Date</td>
+          <td class="my-td-bold">Created Date</td>
           <td *ngIf="!editable">{{credit.created}}</td>
           <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.created" disabled/></td>
         </tr>
         <tr>
-          <td>Income</td>
+          <td class="my-td-bold">Income</td>
           <td *ngIf="!editable">{{credit.income}}</td>
           <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.income"/></td>
         </tr>
         <tr>
-          <td>Personnel Expenses</td>
+          <td class="my-td-bold">Personnel Expenses</td>
           <td *ngIf="!editable">{{credit.personnelExpenses}}</td>
           <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.personnelExpenses"/></td>
         </tr>
         <tr>
-          <td>Execution Expenses</td>
+          <td class="my-td-bold">Execution Expenses</td>
           <td *ngIf="!editable">{{credit.executionExpenses}}</td>
           <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.executionExpenses"/></td>
         </tr>  
         <tr>
-          <td>Total</td>
+          <td class="my-td-bold">Total</td>
           <td *ngIf="!editable">{{credit.total}}</td>
           <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.total" disabled/></td>
         </tr>   

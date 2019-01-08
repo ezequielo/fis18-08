@@ -21,6 +21,7 @@ export class ProjectInfoComponent implements OnInit {
   }
 
   display = false;
+  found = false;
 
   constructor(private projectService: ProjectService) { }
 
@@ -28,8 +29,14 @@ export class ProjectInfoComponent implements OnInit {
 
   getProject(id: string) {
     this.projectService.getProject(id)
-      .subscribe((project) => {   //modificado
-        this.project = project;
+      .subscribe((project) => {
+        if (!project){
+          console.log("Project not found")
+          this.found = false;
+        } else {
+          this.project = project;
+          this.found = true;
+        }
       });
   }
 
