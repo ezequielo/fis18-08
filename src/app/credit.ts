@@ -1,5 +1,5 @@
 export class Credit {
-    _id: String;
+    _id: string;
     projectId: string;
     income: number;
     personnelExpenses: number;

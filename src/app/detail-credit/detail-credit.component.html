@@ -1,0 +1,46 @@
+<div class="card mt-5" style="margin:auto;width: 600px;">
+    <div class="card-body">
+      <h5 class="card-title">Credit {{ credit._id }}</h5>
+      <table>
+        <tr>
+          <td>Project ID</td>
+          <td *ngIf="!editable">{{credit.projectId}}</td>
+          <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.projectId"/></td>
+        </tr>
+        <tr>
+          <td>Created Date</td>
+          <td *ngIf="!editable">{{credit.created}}</td>
+          <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.created" disabled/></td>
+        </tr>
+        <tr>
+          <td>Income</td>
+          <td *ngIf="!editable">{{credit.income}}</td>
+          <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.income"/></td>
+        </tr>
+        <tr>
+          <td>Personnel Expenses</td>
+          <td *ngIf="!editable">{{credit.personnelExpenses}}</td>
+          <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.personnelExpenses"/></td>
+        </tr>
+        <tr>
+          <td>Execution Expenses</td>
+          <td *ngIf="!editable">{{credit.executionExpenses}}</td>
+          <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.executionExpenses"/></td>
+        </tr>  
+        <tr>
+          <td>Total</td>
+          <td *ngIf="!editable">{{credit.total}}</td>
+          <td *ngIf="editable"><input class="form-control" [(ngModel)]="credit.total" disabled/></td>
+        </tr>   
+      </table>
+      <hr>
+      <div app-project-info [credit]="credit">
+
+      </div>
+      <hr>
+      <div style="float:right">
+        <button class="btn btn-outline-warning" (click)="onEdit()">{{editable ? 'Save': 'Edit'}}</button>
+        <button class="btn btn-outline-danger" (click)="onDelete()" style="margin-left: 1em;">Delete</button>
+      </div>
+    </div>
+  </div>

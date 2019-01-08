@@ -23,6 +23,12 @@ export class CreditsService {
     return this.httpClient.get<Credit[]>(this.serverUrl, {headers});    
   }
 
+  getCredit(id: string): Observable<Credit> {
+    const headers = this.headers;
+    const url = `${this.serverUrl}/${id}`;
+    return this.httpClient.get<Credit>(url, {headers});    
+  }
+
   createCredit(credit: Credit): Observable<Credit> {
     const headers = this.headers;
     return this.httpClient.post<Credit>(this.serverUrl, credit, {headers});
