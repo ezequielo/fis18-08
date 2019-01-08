@@ -15,6 +15,7 @@ export class DetailCreditComponent implements OnInit {
  
   credit: Credit = {
     _id: null,
+    created: null,
     projectId: null, 
     income: null,
     personnelExpenses: null,
