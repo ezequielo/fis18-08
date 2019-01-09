@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required]
   });
 
+  loginError = false;
+
   ngOnInit() {
   }
 
@@ -35,12 +37,16 @@ export class LoginComponent implements OnInit {
   tryLogin() {
     this.apikeyService.login(this.user, this.password)
       .subscribe( (apikey) => {
-          if (apikey.token) {
+          if (apikey) {
             this.tokenService.setToken(apikey.token);
+            this.loginError = false;
             this.router.navigateByUrl('/credits');
           } else {
-            console.error("Unable to login")
+            this.loginError = true;
+            console.log("Unable to login")
           }
+      }, (error) => {
+        this.loginError = true;
       });
   }
 

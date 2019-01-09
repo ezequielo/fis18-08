@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Credit } from '../credit';
+import { Rate } from '../rate';
 import { ActivatedRoute } from '@angular/router';
 import { CreditsService } from '../credit.service';
+import { RatesService } from '../rates.service';
 import { Router } from '@angular/router';
 
 
@@ -24,8 +26,15 @@ export class DetailCreditComponent implements OnInit {
   };
 
   editable = false;
+  displayDollars = false;
+  totalDollars = null;
 
-  constructor(private route: ActivatedRoute, private creditService: CreditsService, private router: Router) { }
+  rate: Rate = {
+    rate: null
+  };
+
+  constructor(private route: ActivatedRoute, private creditService: CreditsService, private router: Router,
+    private ratesService: RatesService) { }
 
   getCredit(id: string) {
     this.creditService.getCredit(id)
@@ -59,4 +68,15 @@ export class DetailCreditComponent implements OnInit {
     this.router.navigateByUrl('/credits');
   }
 
+  onTotalDollars() {
+    this.ratesService.getRate('usd').subscribe((rate: Rate) => {
+      if (rate){
+        this.totalDollars = rate.rate * this.credit.total; 
+        this.displayDollars = true;
+      } else {
+        console.log("Unable get rates");
+        this.displayDollars = false;
+      }
+    })
+  }
 }
