@@ -8,9 +8,13 @@ var mongoose = require('mongoose');
 var ApiKey = require('../apikeys');
 var port = (process.env.PORT || 3000);
 
+// read only user
+var pact_broker_user = (process.env.PACT_BROKER_USER || 'cR1ueW0dxOpM0QphyREHOOD2JdxwMrkN');
+var pact_broker_password = (process.env.PACT_BROKER_PASSWORD || 'IAkTId9fL3jlTgpkpMNNaANkUS483l'); 
+
 const opts = {
-    pactBrokerUsername: "wh6VAiz7RQbHVCvVUbHR38wuj8fyDu",
-    pactBrokerPassword: "ZZVdxFE3KCcDf1q1rUDbSq76HFiCfLUi",
+    pactBrokerUsername: pact_broker_user,
+    pactBrokerPassword: pact_broker_password,
     providerBaseUrl: 'http://localhost:3000', // where your service will be running during the test, either staging or localhost on CI
     providerStatesSetupUrl: 'http://localhost:3000/test/setup', // the url to call to set up states
     pactUrls: ["https://universidaddesevilla.pact.dius.com.au/pacts/provider/G2/consumer/G8/latest"], // the pacts to test against
