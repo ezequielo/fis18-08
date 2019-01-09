@@ -5,12 +5,8 @@
     "ng": "ng",
     "start": "node index.js",
     "build": "ng build",
-<<<<<<< HEAD
     "test": "nyc mocha --exit --timeout 15000",
-=======
-    "test": "nyc mocha --exit",
     "client-test": "mocha --timeout 1500 --exit projectResource.spec.js",
->>>>>>> external-api
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "ng lint",
     "e2e": "ng e2e"

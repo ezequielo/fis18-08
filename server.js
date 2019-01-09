@@ -6,12 +6,8 @@ var cache = require('memory-cache');
 var passport = require('passport');
 var LocalAPIKey = require('passport-localapikey-update').Strategy;
 
-<<<<<<< HEAD
 var projectResource = require('./projectResource.js');
-=======
-var projectResource = require('./project-resource.js');
 var rateResource = require('./rate-resource.js');
->>>>>>> master
 
 ObjectID = require('mongodb').ObjectID;
 
@@ -108,7 +104,7 @@ app.get(API_BASE_URL + "/credits/:id",
     passport.authenticate('localapikey', {session: false}),
     (req, res) => {
         var id = req.params.id;
-        Credit.findOne({_id: id}, (err, credit) => {
+        Credit.findById(id, (err, credit) => {
             if (err) {
                 console.error("Error accessing database:\n" + err);
                 res.sendStatus(500);
@@ -147,7 +143,7 @@ app.put(API_BASE_URL + "/credits/:id",
     (req, res) => {
         var id = req.params.id;
         var updatedCredit = req.body;
-        Credit.findOneAndUpdate({_id: id}, updatedCredit, {new: true}, (err, credit) => {
+        Credit.findByIdAndUpdate(id, updatedCredit, (err, credit) => {
             if (err) {
                 console.error("Error accessing database:\n" + err);
                 res.sendStatus(500);
@@ -155,7 +151,7 @@ app.put(API_BASE_URL + "/credits/:id",
                 if (!credit) {
                     res.sendStatus(404);
                 } else {
-                    res.send(credit);
+                    res.send(updatedCredit);
                 }
             }
         });
@@ -167,7 +163,7 @@ app.delete(API_BASE_URL + "/credits/:id",
     passport.authenticate('localapikey', {session: false}),
     (req, res) => {
         var id = req.params.id;
-        Credit.findOneAndDelete({_id: id}, (err, credit) => {
+        Credit.findByIdAndDelete(id, (err, credit) => {
             if (err) {
                 console.error("Error accessing database:\n" + err);
                 res.sendStatus(500);
@@ -176,6 +172,7 @@ app.delete(API_BASE_URL + "/credits/:id",
                     res.sendStatus(404);
                 } else {
                     console.info("Credit deleted:\n" + credit);
+                    // TODO: dont send credit back to frontend
                     res.send(credit);
                 }
             }
@@ -211,23 +208,13 @@ app.get(API_BASE_URL + "/rates/:symbol",
     (req, res) => {
         var symbol = req.params.symbol;
         symbol = symbol.toUpperCase();
-        let cache_key = CACHE_RATE_PREFIX + symbol; // rate_usd
-        rate = cache.get(cache_key);
-        if (rate) {
-            console.log("-- Rate: " + cache_key + " was cached");
-            res.send({'rate': rate});
-        } else {
-            rateResource.getRate()
-            .then((body) => {
-                let rate_value = body.rates[symbol];
-                console.log("-- Caching rate for " + symbol)
-                cache.put(cache_key, rate_value, CACHE_TIMEOUT)
-                res.send({'rate': body.rates[symbol]})
-            }).catch((error) => {
-                console.log('error:'+error);
-                res.sendStatus(500);
-            });
-        }
+        rateResource.getRate()
+        .then((body) => {
+            res.send({'rate': body.rates[symbol]})
+        }).catch((error) => {
+            console.log('error:'+error);
+            res.sendStatus(500);
+        });
     });
 
 module.exports.app = app;
