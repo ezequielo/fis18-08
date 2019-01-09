@@ -13,7 +13,7 @@ COPY credits.js .
 COPY apikeys.js .
 COPY setupdb.js .
 COPY server.js .
-COPY project-resource.js .
+COPY projectResource.js .
 COPY rate-resource.js .
 COPY dist dist
 
