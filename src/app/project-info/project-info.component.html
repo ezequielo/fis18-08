@@ -1,5 +1,10 @@
-<h5>Project info <button class="btn btn-light" (click)="displayInfo()">{{display? 'Hide' : 'Display'}}</button></h5>
-
+<div style="margin-bottom: 1em;">
+    <h5>Project info
+    <button class="btn btn-outline-info" (click)="displayInfo()" style="float: right;">
+      {{display? 'Hide' : 'Display'}}
+    </button>
+  </h5> 
+</div>
 <div *ngIf="display">
   <div *ngIf="!found">
     <p>No info for this project</p>
