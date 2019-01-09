@@ -1,10 +1,7 @@
-var server = require('../server');
 var chai = require('chai');
 var mongoose = require('mongoose');
-//var sinon = require('sinon');
 var expect = chai.expect;
 var Credit = require('../credits');
-//var Apikey = require('../apikeys');
 
 
 describe('Credits DB connection', () => {
@@ -48,6 +45,12 @@ describe('Credits DB connection', () => {
             });
         });
     });
+
+    after((done) => {
+        mongoose.connection.db.dropDatabase(() => {
+            mongoose.connection.close(done);
+        });
+    }); 
 });
 
 

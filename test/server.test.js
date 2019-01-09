@@ -22,7 +22,7 @@ describe('Credits API', () => {
 
     before(() => {
         var ApiKeyStub = sinon.stub(Apikey, 'findOne');
-        ApiKeyStub.yields(null, new Apikey({user: "test"}));    
+        ApiKeyStub.yields(null, new Apikey({user: "test", token: "test"}));    
     });
 
     describe('GET /', () => {
@@ -166,24 +166,14 @@ describe('Credits API', () => {
                 });  
             });
     }); 
-
-
-    /* 
-    
-    TODO: fix PUT and DELTE tests
     
     
     describe('PUT /credits/<id>', () => {
 
-        var creditMock;
-        var credit = CREDIT;
-
-        before(function() {
-            creditMock = sinon.mock(Credit);
-            creditMock.expects('findByIdAndUpdate')
-                .withArgs('5c2ba7bcaf87bb00121cef7d', credit)
-                .yield(null, new Credit(CREDIT));
-        })
+        var credit = new Credit(CREDIT);
+        creditMock = sinon.mock(credit);
+        var CreditStub = sinon.stub(Credit, 'findByIdAndUpdate');
+        CreditStub.yields(null, [credit]);
         
         it('it should update a credit', (done) => {
             chai.request(server.app)
@@ -192,7 +182,7 @@ describe('Credits API', () => {
                 .send(credit)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
-                    dbMock.verify();
+                    creditMock.verify();
                     done();
                 });  
         });
@@ -200,27 +190,20 @@ describe('Credits API', () => {
 
     describe('DELETE /credits/<id>', () => {
 
-        var creditMock;
-        var credit = CREDIT;
+        var credit = new Credit(CREDIT);
+        creditMock = sinon.mock(credit);
+        var CreditStub = sinon.stub(Credit, 'findByIdAndDelete');
+        CreditStub.yields(null, [credit]);
 
-        before(function() {
-            creditMock = sinon.mock(Credit);
-            creditMock.expects('findByIdAndDelete')
-                .withArgs('5c2ba7bcaf87bb00121cef7d')
-                .yield(null);
-        })
-        
         it('it should update a credit', (done) => {
             chai.request(server.app)
                 .delete('/api/v1/credits/5c2ba7bcaf87bb00121cef7d')
                 .query({ apikey: "test" })
                 .end((err, res) => {
                     expect(res).to.have.status(200);
-                    dbMock.verify();
+                    creditMock.verify();
                     done();
                 });  
         });
-    }); */
-
-
+    });
 });

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var ApiKey = require('./apikeys');
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/dev');
 var db = mongoose.connection;
 
 var user = (process.env.USER || 'fis');
