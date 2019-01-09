@@ -208,13 +208,23 @@ app.get(API_BASE_URL + "/rates/:symbol",
     (req, res) => {
         var symbol = req.params.symbol;
         symbol = symbol.toUpperCase();
-        rateResource.getRate()
-        .then((body) => {
-            res.send({'rate': body.rates[symbol]})
-        }).catch((error) => {
-            console.log('error:'+error);
-            res.sendStatus(500);
-        });
-    });
+        let cache_key = CACHE_RATE_PREFIX + symbol; // rate_usd
+        rate = cache.get(cache_key);
+        if (rate) {
+            console.log("-- Rate: " + cache_key + " was cached");
+            res.send({'rate': rate});
+        } else {
+            rateResource.getRate()
+            .then((body) => {
+                let rate_value = body.rates[symbol];
+                console.log("-- Caching rate for " + symbol)
+                cache.put(cache_key, rate_value, CACHE_TIMEOUT)
+                res.send({'rate': body.rates[symbol]})
+            }).catch((error) => {
+                console.log('error:'+error);
+                res.sendStatus(500);
+            });
+        }
+});
 
 module.exports.app = app;
