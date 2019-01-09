@@ -44,3 +44,6 @@ Thumbs.db
 
 # nyc
 .nyc_output
+
+# logs folder
+logs

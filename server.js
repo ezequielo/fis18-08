@@ -6,8 +6,12 @@ var cache = require('memory-cache');
 var passport = require('passport');
 var LocalAPIKey = require('passport-localapikey-update').Strategy;
 
+<<<<<<< HEAD
+var projectResource = require('./projectResource.js');
+=======
 var projectResource = require('./project-resource.js');
 var rateResource = require('./rate-resource.js');
+>>>>>>> master
 
 ObjectID = require('mongodb').ObjectID;
 
