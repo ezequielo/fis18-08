@@ -24,9 +24,8 @@ describe('projects api', () => {
         it('should get a project by its id from server', (done) => {
             projectResource.getProject(1)
               .then((project) => {
-                expect(project).to.have.lengthOf(1);
-                expect(project).to.contain.an.item.with.property('id', '1');
-                expect(project).to.contain.an.item.with.property('organismo','ETSII')
+                expect(project.id).equals('1');
+                expect(project.organismo).equals('ETSII')
                 done();
               }, done)
         }) 

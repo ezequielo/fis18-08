@@ -1,4 +1,4 @@
-const ONE_PROJECT_BODY = [{
+const ONE_PROJECT_BODY = {
 	"id": "1",
 	"titulo": "Testeo",
 	"descripcion": "Testeroni",
@@ -9,7 +9,7 @@ const ONE_PROJECT_BODY = [{
 	"investigadores": ["2, 3"],
 	"presupuesto": "1",
 	"estado": "Concedido"
-}]
+}
 
 module.exports = {
     getProject: {

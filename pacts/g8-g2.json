@@ -17,22 +17,20 @@
         "status": 200,
         "headers": {
         },
-        "body": [
-          {
-            "id": "1",
-            "titulo": "Testeo",
-            "descripcion": "Testeroni",
-            "fechaInicio": "2018-12-11T23:00:00.000Z",
-            "fechaFin": "2018-12-12T23:00:00.000Z",
-            "organismo": "ETSII",
-            "investigadorResponsable": "1",
-            "investigadores": [
-              "2, 3"
-            ],
-            "presupuesto": "1",
-            "estado": "Concedido"
-          }
-        ]
+        "body": {
+          "id": "1",
+          "titulo": "Testeo",
+          "descripcion": "Testeroni",
+          "fechaInicio": "2018-12-11T23:00:00.000Z",
+          "fechaFin": "2018-12-12T23:00:00.000Z",
+          "organismo": "ETSII",
+          "investigadorResponsable": "1",
+          "investigadores": [
+            "2, 3"
+          ],
+          "presupuesto": "1",
+          "estado": "Concedido"
+        }
       }
     }
   ],

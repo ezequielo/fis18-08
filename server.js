@@ -190,7 +190,7 @@ app.get(API_BASE_URL + "/projects/:id",
         var id = req.params.id;
         projectResource.getProject(id)
         .then((body) => {
-            res.send(body[0]);
+            res.send(body);
         }).catch((error) => {
             console.log('error:'+error);
             res.sendStatus(500);
