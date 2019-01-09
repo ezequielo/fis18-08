@@ -104,7 +104,7 @@ app.get(API_BASE_URL + "/credits/:id",
     passport.authenticate('localapikey', {session: false}),
     (req, res) => {
         var id = req.params.id;
-        Credit.findById(id, (err, credit) => {
+        Credit.findOne({_id: id}, (err, credit) => {
             if (err) {
                 console.error("Error accessing database:\n" + err);
                 res.sendStatus(500);
@@ -143,7 +143,7 @@ app.put(API_BASE_URL + "/credits/:id",
     (req, res) => {
         var id = req.params.id;
         var updatedCredit = req.body;
-        Credit.findByIdAndUpdate(id, updatedCredit, (err, credit) => {
+        Credit.findOneAndUpdate({_id: id}, updatedCredit, {new: true}, (err, credit) => {
             if (err) {
                 console.error("Error accessing database:\n" + err);
                 res.sendStatus(500);
@@ -151,7 +151,7 @@ app.put(API_BASE_URL + "/credits/:id",
                 if (!credit) {
                     res.sendStatus(404);
                 } else {
-                    res.send(updatedCredit);
+                    res.send(credit);
                 }
             }
         });
@@ -163,7 +163,7 @@ app.delete(API_BASE_URL + "/credits/:id",
     passport.authenticate('localapikey', {session: false}),
     (req, res) => {
         var id = req.params.id;
-        Credit.findByIdAndDelete(id, (err, credit) => {
+        Credit.findOneAndDelete({_id: id}, (err, credit) => {
             if (err) {
                 console.error("Error accessing database:\n" + err);
                 res.sendStatus(500);
@@ -172,7 +172,6 @@ app.delete(API_BASE_URL + "/credits/:id",
                     res.sendStatus(404);
                 } else {
                     console.info("Credit deleted:\n" + credit);
-                    // TODO: dont send credit back to frontend
                     res.send(credit);
                 }
             }

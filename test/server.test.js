@@ -64,12 +64,12 @@ describe('Credits API', () => {
             var credit = new Credit(CREDIT);
             creditMock = sinon.mock(credit);
             creditMock.expects('cleanup').returns(CREDIT);
-            var CreditStub = sinon.stub(Credit, 'findById');
+            var CreditStub = sinon.stub(Credit, 'findOne');
             CreditStub.yields(null, credit);
         });
 
         after(function () {
-            Credit.findById.restore();
+            Credit.findOne.restore();
         });
 
         it('should return one credit', (done) => {
@@ -91,12 +91,12 @@ describe('Credits API', () => {
         before(function () {
             var credit = new Credit(CREDIT);
             creditMock = sinon.mock(credit);
-            var CreditStub = sinon.stub(Credit, 'findById');
+            var CreditStub = sinon.stub(Credit, 'findOne');
             CreditStub.yields(null, null);
         });
 
         after(function () {
-            Credit.findById.restore();
+            Credit.findOne.restore();
         });
 
         it('should return 404', (done) => {
@@ -171,9 +171,19 @@ describe('Credits API', () => {
     describe('PUT /credits/<id>', () => {
 
         var credit = new Credit(CREDIT);
-        creditMock = sinon.mock(credit);
-        var CreditStub = sinon.stub(Credit, 'findByIdAndUpdate');
+        var creditMock;
+        var CreditStub;
+
+        before(function () {
+        CreditStub = sinon.stub(Credit, 'findOneAndUpdate');
         CreditStub.yields(null, [credit]);
+        creditMock = sinon.mock(credit);
+        });
+
+        after(function () {
+            CreditStub.restore()
+            creditMock.restore()
+        })
         
         it('it should update a credit', (done) => {
             chai.request(server.app)
@@ -192,7 +202,7 @@ describe('Credits API', () => {
 
         var credit = new Credit(CREDIT);
         creditMock = sinon.mock(credit);
-        var CreditStub = sinon.stub(Credit, 'findByIdAndDelete');
+        var CreditStub = sinon.stub(Credit, 'findOneAndDelete');
         CreditStub.yields(null, [credit]);
 
         it('it should update a credit', (done) => {
