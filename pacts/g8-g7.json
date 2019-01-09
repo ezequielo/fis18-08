@@ -1,9 +1,9 @@
 {
   "consumer": {
-    "name": "Credits"
+    "name": "G8"
   },
   "provider": {
-    "name": "Projects"
+    "name": "G7"
   },
   "interactions": [
     {
